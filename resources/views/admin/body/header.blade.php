@@ -322,21 +322,21 @@
                     </li>
                 </ul>
             </div>
-            {{-- @php
-            $id = Auth::user()->id;
-            $adminData = App\Models\User::find($id);
-            $vendorData = App\Models\User::find($id);
-        @endphp --}}
-            {{-- <div class="user-box dropdown">
+            @php
+                $id = Auth::user()->id;
+                $adminData = App\Models\User::find($id);
+                // $vendorData = App\Models\User::find($id);
+             @endphp
+              <div class="user-box dropdown">
                 <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ (!empty($adminData->photo)) ? url('upload/admin_images/'.$adminData->photo):url('upload/no_image.jpg') }}"class="user-img" alt="user avatar">
+                    {{-- <img src="{{ (!empty($adminData->photo)) ? url('upload/admin_images/'.$adminData->photo):url('upload/no_image.jpg') }}"class="user-img" alt="user avatar"> --}}
                     <div class="user-info ps-3">
                         <p class="user-name mb-0">{{ Auth::user()->name }}</p>
                         <p class="designattion mb-0">{{ Auth::user()->username }}</p>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    {{-- <li><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="bx bx-user"></i><span>Profile</span></a>
+                    <li><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="bx bx-user"></i><span>Profile</span></a>
                     </li>
                     <li><a class="dropdown-item" href="{{ route('admin.changepassword') }}"><i class="bx bx-edit"></i><span>Change password</span></a>
                     </li>
@@ -349,10 +349,31 @@
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
-                    </li> --}}
+                    <li>
+                        @if(Auth::user()->role === 'admin')
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                            </a>
+                        {{-- @elseif(Auth::user()->role === 'manager')
+                            <a class="dropdown-item" href="{{ route('manager.logout') }}">
+                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                            </a> --}}
+                        @elseif(Auth::user()->role === 'mentor')
+                            <a class="dropdown-item" href="{{ route('mentor.logout') }}">
+                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                            </a>
+                        {{-- @elseif(Auth::user()->role === 'mentee')
+                            <a class="dropdown-item" href="{{ route('mentee.logout') }}">
+                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                            </a>
+                        @else
+                            <a class="dropdown-item" href="{{ route('agent.logout') }}">
+                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                            </a>--}}
+                        @endif 
+                    </li>
                 </ul>
-            </div> --}}
+            </div> 
         </nav>
     </div>
 </header>
